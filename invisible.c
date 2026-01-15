@@ -32,6 +32,7 @@ long parse_seconds(char *arg) {
 int main(int argc, char *argv[]) {
     if (argc < 2 || argc > 3) {
         fprintf(stderr, "Usage: %s <filename> [duration]\n", argv[0]);
+        fprintf(stderr, "©️ 2026, Ramón Barrios Láscar.\n");
         return 2;
     }
 
@@ -40,7 +41,7 @@ int main(int argc, char *argv[]) {
 
     // 1. Check if file exists
     if (access(filename, F_OK) == 0) {
-        fprintf(stderr, "Error: File '%s' already exists.\n", filename);
+        fprintf(stderr, "%s: Error, file '%s' already exists.\n", argv[0], filename);
         return 1;
     }
 
@@ -48,7 +49,7 @@ int main(int argc, char *argv[]) {
     if (argc == 3) {
         duration = parse_seconds(argv[2]);
         if (duration <= 0) {
-            fprintf(stderr, "Error: Invalid time format '%s'.\n", argv[2]);
+            fprintf(stderr, "%s: Error, invalid time format '%s'.\n", argv[0], argv[2]);
             return 2;
         }
     }
@@ -68,7 +69,7 @@ int main(int argc, char *argv[]) {
         close(fd);
         return 1;
     }
-    printf("File unlinked. It is now invisible to 'ls' but open in this process.\n");
+    printf("%s: File unlinked. It is now invisible to 'ls' but open in this process.\n", argv[0]);
 
     // 5. Start writing loop
     unsigned char *buffer = malloc(CHUNK_SIZE);
